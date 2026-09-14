@@ -34,6 +34,7 @@ const MAPS = {
       { x: 83.63, y: 72.86 },
       { x: 82.21, y: 68.43 },
     ],
+    zoneRadius: 5.0,
   },
   ozeti: {
     id: "ozeti",
@@ -54,6 +55,7 @@ const MAPS = {
       { x: 100.37, y: 59.23 },
       { x: 95.8, y: 62.82 },
     ],
+    zoneRadius: 5.5,
   },
   zestafona: {
     id: "zestafona",
@@ -72,21 +74,22 @@ const MAPS = {
       { x: 68.6, y: 104.15 },
       { x: 72.89, y: 105.07 },
     ],
+    zoneRadius: 5.0,
   },
 };
 
-function zoneFromTowers(towers) {
+function zoneFromTowers(towers, radiusU) {
   const cx = towers.reduce((s, t) => s + t.x, 0) / towers.length;
   const cy = towers.reduce((s, t) => s + t.y, 0) / towers.length;
   let maxDist = 0;
   for (const t of towers) {
     maxDist = Math.max(maxDist, Math.hypot(t.x - cx, t.y - cy));
   }
-  return { cx, cy, r: maxDist + 2.5 };
+  return { cx, cy, r: Math.max(radiusU, maxDist + 0.3) };
 }
 
 for (const m of Object.values(MAPS)) {
-  m.zone = zoneFromTowers(m.towers);
+  m.zone = zoneFromTowers(m.towers, m.zoneRadius);
 }
 
 const canvas = document.getElementById("map");
