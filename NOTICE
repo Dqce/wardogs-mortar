@@ -1,0 +1,11 @@
+Map tiles, drill positions, and map config adapted from:
+- djzet/wardogs-calc + djzet/wardogs-maps (MIT) — Bakurani/Ozeti tiles, drill icon
+- apollyon-sys/wardogs-calculator (MIT) — Zestafona tile source, spawn/tower coords, faction icons
+
+Zestafona tiles are vendored locally under maps/zestafona/tiles (CDN blocks hotlinking).
+
+Copyright (c) 2026 Silaev Egor
+Copyright (c) 2026 Apollyon
+
+WARDOGS map imagery remains the property of its respective owners.
+This project is unofficial and not affiliated with BULKHEAD.
