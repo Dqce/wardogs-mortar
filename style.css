@@ -97,7 +97,6 @@ h2 {
 
 .map-tab,
 .tool,
-.clear-btn,
 button {
   height: 40px;
   padding: 0 14px;
@@ -132,24 +131,16 @@ button {
 
 .map-tab:hover,
 .tool:hover,
-.clear-btn:hover,
 button:hover,
 .map-tab:focus-visible,
 .tool:focus-visible,
-.clear-btn:focus-visible,
 button:focus-visible {
   border-color: var(--accent);
   outline: none;
 }
 
-.clear-btn {
-  width: 100%;
-  flex: 0 0 auto;
-  background: transparent;
-}
-
-.clear-btn:hover,
-.clear-btn:focus-visible {
+.tool-clear:hover,
+.tool-clear:focus-visible {
   border-color: var(--danger);
   color: var(--danger);
 }
@@ -270,6 +261,7 @@ button:focus-visible {
   padding: 0 14px;
   max-height: 40vh;
   overflow: auto;
+  text-align: center;
 }
 
 .manual summary {
@@ -281,6 +273,7 @@ button:focus-visible {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .manual summary::-webkit-details-marker {
@@ -292,20 +285,39 @@ button:focus-visible {
   margin-bottom: 12px;
 }
 
+.manual-form {
+  display: grid;
+  gap: 4px;
+  padding-bottom: 4px;
+}
+
 .panel {
   padding: 0 0 14px;
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .coords {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+  max-width: 420px;
+  margin: 0 auto;
 }
 
 label {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  text-align: center;
 }
 
 label span {
@@ -325,6 +337,7 @@ input {
   color: var(--text);
   font: 700 1.05rem/1 ui-monospace, "Cascadia Mono", "Segoe UI Mono", Consolas, monospace;
   font-variant-numeric: tabular-nums;
+  text-align: center;
   outline: none;
 }
 
@@ -367,7 +380,6 @@ input:focus {
 
   .map-tab,
   .tool,
-  .clear-btn,
   button {
     height: 36px;
     padding: 0 12px;

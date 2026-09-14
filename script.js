@@ -34,7 +34,6 @@ const MAPS = {
       { x: 83.63, y: 72.86 },
       { x: 82.21, y: 68.43 },
     ],
-    zoneRadius: 10.0,
   },
   ozeti: {
     id: "ozeti",
@@ -55,7 +54,6 @@ const MAPS = {
       { x: 100.37, y: 59.23 },
       { x: 95.8, y: 62.82 },
     ],
-    zoneRadius: 5.5,
   },
   zestafona: {
     id: "zestafona",
@@ -74,22 +72,21 @@ const MAPS = {
       { x: 68.6, y: 104.15 },
       { x: 72.89, y: 105.07 },
     ],
-    zoneRadius: 10.0,
   },
 };
 
-function zoneFromTowers(towers, radiusU) {
+function focusFromTowers(towers) {
   const cx = towers.reduce((s, t) => s + t.x, 0) / towers.length;
   const cy = towers.reduce((s, t) => s + t.y, 0) / towers.length;
   let maxDist = 0;
   for (const t of towers) {
     maxDist = Math.max(maxDist, Math.hypot(t.x - cx, t.y - cy));
   }
-  return { cx, cy, r: Math.max(radiusU, maxDist + 0.3) };
+  return { cx, cy, view: Math.max(18, (maxDist + 3) * 2.8) };
 }
 
 for (const m of Object.values(MAPS)) {
-  m.zone = zoneFromTowers(m.towers, m.zoneRadius);
+  m.focus = focusFromTowers(m.towers);
 }
 
 const canvas = document.getElementById("map");
@@ -177,13 +174,12 @@ function screenToWorld(sx, sy) {
 
 function fitMap() {
   const m = map();
-  const z = m.zone;
+  const f = m.focus;
   const sw = canvas._cssW;
   const sh = canvas._cssH;
-  const viewSize = z.r * 2.6;
-  state.scale = Math.min(sw / viewSize, sh / viewSize);
-  state.ox = sw / 2 - z.cx * state.scale;
-  state.oy = sh / 2 + z.cy * state.scale;
+  state.scale = Math.min(sw / f.view, sh / f.view);
+  state.ox = sw / 2 - f.cx * state.scale;
+  state.oy = sh / 2 + f.cy * state.scale;
   draw();
 }
 
@@ -356,18 +352,6 @@ function draw() {
 
   drawTiles();
 
-  if (m.zone) {
-    drawCircle(
-      m.zone.cx,
-      m.zone.cy,
-      m.zone.r,
-      "rgba(255, 220, 120, 0.07)",
-      "rgba(255, 220, 120, 0.85)",
-      2.5,
-      null
-    );
-  }
-
   const towerSize = Math.min(34, Math.max(18, 22 * Math.sqrt(state.scale / 4)));
   for (const t of m.towers) {
     drawIcon(t.x, t.y, "assets/tower.webp", towerSize);
@@ -442,12 +426,16 @@ function updateDistance() {
   rangeEl.className = `range-status ${inRange ? "in" : "out"}`;
 }
 
-function placeFromWorld(pt) {
+function clampPoint(pt) {
   const m = map();
-  const clamped = {
+  return {
     x: Math.min(Math.max(pt.x, 0), m.worldW),
     y: Math.min(Math.max(pt.y, 0), m.worldH),
   };
+}
+
+function placeFromWorld(pt) {
+  const clamped = clampPoint(pt);
 
   if (state.tool === "mortar") {
     state.mortar = clamped;
@@ -467,8 +455,11 @@ function readInputs() {
   const tx = parseCoord(targetX.value);
   const ty = parseCoord(targetY.value);
 
-  state.mortar = mx !== null && my !== null ? { x: mx, y: my } : null;
-  state.target = tx !== null && ty !== null ? { x: tx, y: ty } : null;
+  state.mortar =
+    mx !== null && my !== null ? clampPoint({ x: mx, y: my }) : null;
+  state.target =
+    tx !== null && ty !== null ? clampPoint({ x: tx, y: ty }) : null;
+
   updateDistance();
   draw();
 }

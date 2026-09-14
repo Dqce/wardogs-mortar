@@ -31,6 +31,7 @@
         </svg>
         <span>Mortar</span>
       </button>
+      <button type="button" class="tool tool-clear" id="clear">Clear</button>
       <button type="button" class="tool" data-tool="target" id="tool-target">
         <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -53,11 +54,9 @@
       <p id="range-status" class="range-status" hidden></p>
     </section>
 
-    <button type="button" class="clear-btn" id="clear">Clear</button>
-
     <details class="manual">
       <summary>Manual coordinates</summary>
-      <form id="calc-form" autocomplete="off" novalidate>
+      <form id="calc-form" class="manual-form" autocomplete="off" novalidate>
         <section class="panel" aria-labelledby="mortar-label">
           <h2 id="mortar-label">Mortar</h2>
           <div class="coords">
