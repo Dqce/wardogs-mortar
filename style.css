@@ -229,12 +229,6 @@ button:focus-visible {
   color: var(--danger);
 }
 
-.hint {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.78rem;
-}
-
 .manual {
   border: 1px solid var(--panel-edge);
   border-radius: var(--radius);
