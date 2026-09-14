@@ -34,7 +34,7 @@ const MAPS = {
       { x: 83.63, y: 72.86 },
       { x: 82.21, y: 68.43 },
     ],
-    zoneRadius: 5.0,
+    zoneRadius: 10.0,
   },
   ozeti: {
     id: "ozeti",
@@ -74,7 +74,7 @@ const MAPS = {
       { x: 68.6, y: 104.15 },
       { x: 72.89, y: 105.07 },
     ],
-    zoneRadius: 5.0,
+    zoneRadius: 10.0,
   },
 };
 

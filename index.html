@@ -24,9 +24,21 @@
     </header>
 
     <div class="toolbar" role="toolbar" aria-label="Tools">
-      <button type="button" class="tool is-active" data-tool="mortar" id="tool-mortar">Mortar</button>
-      <button type="button" class="tool" data-tool="target" id="tool-target">Target</button>
-      <button type="button" class="tool tool-ghost" id="clear">Clear</button>
+      <button type="button" class="tool is-active" data-tool="mortar" id="tool-mortar">
+        <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 18l8-8 3 3 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="7" cy="15" r="2.2" fill="currentColor"/>
+        </svg>
+        <span>Mortar</span>
+      </button>
+      <button type="button" class="tool" data-tool="target" id="tool-target">
+        <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="12" cy="12" r="1.4" fill="currentColor"/>
+        </svg>
+        <span>Target</span>
+      </button>
     </div>
 
     <div class="map-shell">
@@ -40,6 +52,8 @@
       <p id="distance" class="result-value is-empty">Place mortar</p>
       <p id="range-status" class="range-status" hidden></p>
     </section>
+
+    <button type="button" class="clear-btn" id="clear">Clear</button>
 
     <details class="manual">
       <summary>Manual coordinates</summary>
